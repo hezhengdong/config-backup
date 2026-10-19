@@ -49,8 +49,25 @@ copy_file "$HOME/.vimrc" "home/.vimrc"
 copy_file "$HOME/.config/clash.meta/remove_hk.sh" "home/.config/clash.meta/remove_hk.sh"
 
 # ---- 2. 生成 brew 清单（排序，避免顺序抖动造成假变更）----
-brew leaves 2>>"$LOG" | sort >"$REPO/inventory/brew-leaves.txt" || log "brew leaves 执行失败"
-brew list --cask 2>>"$LOG" | sort >"$REPO/inventory/brew-casks.txt" || log "brew list --cask 执行失败"
+mkdir -p "$REPO/inventory"
+TMP_INV=$(mktemp)
+
+brew leaves 2>>"$LOG" | sort >"$TMP_INV"
+if [ "${PIPESTATUS[0]}" -eq 0 ] && [ -s "$TMP_INV" ]; then
+  mv "$TMP_INV" "$REPO/inventory/brew-leaves.txt"
+else
+  log "brew leaves 输出异常，保留旧清单"
+  : >"$TMP_INV"
+fi
+
+brew list --cask 2>>"$LOG" | sort >"$TMP_INV"
+if [ "${PIPESTATUS[0]}" -eq 0 ] && [ -s "$TMP_INV" ]; then
+  mv "$TMP_INV" "$REPO/inventory/brew-casks.txt"
+else
+  log "brew list --cask 输出异常，保留旧清单"
+  : >"$TMP_INV"
+fi
+rm -f "$TMP_INV"
 
 # ---- 3. 提交前扫描，命中高置信度密钥就中止 ----
 if grep -rIqE 'ghp_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY' "$REPO/home"; then
