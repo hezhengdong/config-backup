@@ -1,0 +1,10 @@
+cc-switch
+claude-code
+codex
+ghostty
+libreoffice
+localsend
+mos
+orbstack
+sloth
+stats
