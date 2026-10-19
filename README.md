@@ -16,7 +16,7 @@ macOS 常用配置的自动备份，变更后自动推送到 GitHub。
 
 ## 自动运行
 
-LaunchAgent `com.hezhengdong.config-backup`，每小时 :30 执行一次，登录时补跑一次。
+LaunchAgent `com.hezhengdong.config-backup`，每天 12:30 执行一次，登录时补跑一次。
 
 ```bash
 launchctl print gui/$(id -u)/com.hezhengdong.config-backup   # 查看状态

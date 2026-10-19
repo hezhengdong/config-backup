@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # 把常用配置同步到 ~/config-backup 并推送到 GitHub
-# 由 LaunchAgent com.hezhengdong.config-backup 每小时 :30 调用，也可手动执行。
+# 由 LaunchAgent com.hezhengdong.config-backup 每天 12:30 调用，也可手动执行。
 #
 # 备份范围：~/.zshrc、~/.vimrc、~/.config/clash.meta/remove_hk.sh、brew 清单
 # 日志：~/Library/Logs/config-backup.log
