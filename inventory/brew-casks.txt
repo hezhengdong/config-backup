@@ -2,8 +2,10 @@ cc-switch
 claude-code
 codex
 ghostty
+jordanbaird-ice
 libreoffice
 localsend
+maccy
 mos
 orbstack
 sloth
