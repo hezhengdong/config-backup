@@ -1,3 +1,4 @@
+app-detective
 cc-switch
 claude-code
 codex
